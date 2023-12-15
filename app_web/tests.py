@@ -6,7 +6,7 @@ from .models import Article, Author
 class ArticleTestCase(TestCase):
         @classmethod
         def setUpTestData(cls):
-            author = Author.objects.create(name="Test Author")
+            author = Author.objects.create(name="Test Author", age=18)
             Article.objects.create(
                 title="Test",
                 content=
@@ -41,7 +41,4 @@ class ArticleTestCase(TestCase):
 
         def test_short_content(self):
             article = Article.objects.get(title="Test")
-            print(article.short_content)
-            print(len(article.short_content))
             self.assertTrue(len(article.short_content) <= 53)
-

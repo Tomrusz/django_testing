@@ -1,9 +1,18 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
 class Author(models.Model):
     name = models.CharField(max_length=50)
     bio = models.TextField(blank=True)
+
+    def validate_age(value):
+        if value in range(10, 100):
+            return value
+        else:
+            raise ValidationError("age need to be between 18 and 100 years old")
+
+    age = models.PositiveIntegerField(validators=[validate_age])
 
     def __str__(self):
         return self.name
